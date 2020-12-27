@@ -1,13 +1,12 @@
-# frozen_string_literal: true
-
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[show edit update]
+  before_action :set_article, only: [:show, :edit, :update]
 
   def index
     @articles = Article.all
   end
-
-  def show; end
+  
+  def show
+  end
 
   def new
     @article = Article.new
@@ -18,12 +17,13 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to article_path(@article), notice: '保存できたよ'
     else
-      flash.now[:errow] = '保存に失敗しました'
+        flash.now[:errow] = "保存に失敗しました"
       render :new
     end
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @article.update(article_params)
@@ -40,7 +40,6 @@ class ArticlesController < ApplicationController
   end
 
   private
-
   def article_params
     params.require(:article).permit(:title, :content)
   end
